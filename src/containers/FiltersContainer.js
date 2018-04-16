@@ -7,12 +7,14 @@ import { fetchGenres, removeFilters, setFilters, changeView } from '../actions'
 
 const mapStateToProps = state => ({
   ...state.milista,
+  ...state.viewed,
   ...state.peliculas,
   ...state.series,
   ...state.generos,
   ...state.filters,
   ...state,
   milista: state.milista.milista,
+  viewed: state.viewed.viewed,
   peliculas: state.peliculas.peliculas,
   series: state.series.series,
   generos: state.generos.generos,

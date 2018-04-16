@@ -24,6 +24,7 @@ const ViewedFilters = ( props ) => {
     return (
         <div className="filters-bar-left">
             <Select name="filter-viewed" {...props}>
+                <option value="">Todas</option>
                 <option value="0">No Vistas</option>
                 <option value="1">Vistas</option>
             </Select>

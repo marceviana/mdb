@@ -19,6 +19,24 @@ export const removeFromList = id => {
   id
 })}
 
+export const setAsNotViewed = id => {
+  // console.log('---------------------');
+  // console.log('action: setAsNotViewed', id);
+  // console.log('---------------------');
+  return ({
+  type: 'REMOVE_FROM_VIEWED',
+  id
+})}
+
+export const setAsViewed = id => {
+  // console.log('---------------------');
+  // console.log('action: setAsViewed', id);
+  // console.log('---------------------');
+  return ({
+  type: 'ADD_TO_VIEWED',
+  id
+})}
+
 export const videoSearch = term => {
   // console.log('---------------------');
   // console.log('action: videoSearch', term.name);

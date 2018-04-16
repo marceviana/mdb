@@ -5,6 +5,7 @@ import { replace, push } from 'react-router-redux'
 import { withRouter } from 'react-router-dom'
 
 import Grid from "../containers/GridContainer";
+import Button from "./Buttons";
 
 const EmptyDetail = styled.div`
     padding: 4em 0;
@@ -30,6 +31,11 @@ const Detail = ({ match, ...props }) => {
     let peli = peliculas.concat(series).find(function(a){ return a.id===id})
     let cat = (peli && peli.cat) || '';
 
+    let toggleList = (peli && props.milista.indexOf(peli.id) >= 0 ? props.removeFromList :  props.addToList);
+    let toggleViewed = (peli && props.viewed.indexOf(peli.id) >= 0 ? props.setAsNotViewed :  props.setAsViewed);
+    let inList = peli && props.milista.indexOf(peli.id) >= 0;
+    let isViewed = peli && props.viewed.indexOf(peli.id) >= 0;
+
     // peli && console.log(peli);
     // peli && console.log(props.credits);
     // peli && console.log(peli.credits);
@@ -43,7 +49,7 @@ const Detail = ({ match, ...props }) => {
                         (!peliculas || !peli) ?
                         <div className="row">
                             <div className="col-md-12">
-                                {props.isFetching && <EmptyDetail>Cargando...</EmptyDetail> }
+                                {props.isFetching && <EmptyDetail><div className="loading"><i className="mdi mdi-loading"></i></div> Cargando...</EmptyDetail> }
                                 {!props.isFetching && props.error && <EmptyDetail>Ops, nada por aqui!</EmptyDetail>}
                             </div>
                         </div>
@@ -51,7 +57,15 @@ const Detail = ({ match, ...props }) => {
                         (
                         <div className="row">
                             <div className="col-md-4">
-                              <img src={`https://image.tmdb.org/t/p/w500/${peli.poster_path}`} alt="Movie" className="img-fluid" />
+                                <div className="item-img-wrapper" style={{ position: 'relative' }}>
+                                    <div className="grid-item-body">
+                                        <div className="grid-item-actions">
+                                            <Button btnType={ inList ? 'remove' : 'add' } onClick={ (e) => toggleList(peli.id) } />
+                                            <Button btnType={ isViewed ? 'viewed' : 'not-viewed' } onClick={ (e) => toggleViewed(peli.id) } />
+                                        </div>
+                                    </div>
+                                    <img src={`https://image.tmdb.org/t/p/w500/${peli.poster_path}`} alt="Movie" className="img-fluid" />
+                                </div>
                             </div>
                             <div className="col-md-8">
                                 <h1>

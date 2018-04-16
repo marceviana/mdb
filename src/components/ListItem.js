@@ -6,7 +6,7 @@ import { replace, push } from 'react-router-redux'
 import { withRouter } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
-import Button from "./MyListAddButton";
+import Button from "./Buttons";
 
 const ListItem = ( props ) => {
 
@@ -30,7 +30,8 @@ const ListItem = ( props ) => {
                         <p>{ ! isSearch && ((props.overview && `${props.overview.substr(0,150)}...`) || props.nodescription) }</p>
                     </div>
                     <div className="list-item-actions">
-                        <Button btnType={ props.btnType } onClick={ (e) => props.onClick(props.id) } />
+                        <Button btnType={ props.inList ? 'remove' : 'add' } onClick={ (e) => props.toggleList(props.id) }>{props.inList ? 'Quitar' : 'Agregar'}</Button>
+                        <Button btnType={ props.isViewed ? 'viewed' : 'not-viewed' } onClick={ (e) => props.toggleViewed(props.id) }>{ isSearch ?  '' : (props.isViewed ? 'Marcar como no vista' : 'Marcar como vista')}</Button>
                     </div>
                 </div>
             </div>

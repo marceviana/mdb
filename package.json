@@ -1,7 +1,8 @@
 {
   "name": "mdb",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage" : "http://marceviana.github.io/mdb",
   "dependencies": {
     "axios": "^0.18.0",
     "history": "^4.7.2",
@@ -21,6 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }

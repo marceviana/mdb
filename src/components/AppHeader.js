@@ -7,6 +7,7 @@ import { NavLink, withRouter } from 'react-router-dom'
 
 import styled from 'styled-components'
 import ListItem from "./ListItem";
+import Button from "./Buttons";
 
 const StyledHeader = styled.header`
     position: fixed;
@@ -32,19 +33,24 @@ const Results = ({ search_term, peliculas, series, ...props }) => {
     let items = peliculas.concat(series)
     .filter((item) => item.title && item.title.toLowerCase().indexOf(search_term.toLowerCase())>=0 )
     .map((item) => {
+
         let itemProps = {
             context: 'search',
             imgSrc: `https://image.tmdb.org/t/p/w500/${item.poster_path}`,
             date: item.release_date,
             key: item.id,
-            onClick: (props.milista.indexOf(item.id) >= 0 ? props.removeFromList :  props.addToList),
-            btnType: (props.milista.indexOf(item.id) >= 0 ? 'remove' :  'add'),
+            toggleList: (props.milista.indexOf(item.id) >= 0 ? props.removeFromList :  props.addToList),
+            toggleViewed: (props.viewed.indexOf(item.id) >= 0 ? props.setAsNotViewed :  props.setAsViewed),
+            inList: props.milista.indexOf(item.id) >= 0,
+            isViewed: props.viewed.indexOf(item.id) >= 0,
             ...item
         }
+
         return <ListItem { ...itemProps } />
     })
 
-    console.log(items);
+    // console.log(items);
+    
     return (
         <StyledResults>
             { items.length ? items : <h4 style={ {padding: '40px'} } >Oops, nada por aqui!</h4> }

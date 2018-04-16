@@ -3,23 +3,25 @@ import Grid from "../components/Grid";
 import { compose, lifecycle } from 'recompose'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
-import { addToList, removeFromList, fetchMovies, fetchSeries } from '../actions'
+import { addToList, removeFromList, fetchMovies, fetchSeries, setAsNotViewed, setAsViewed } from '../actions'
 
 const mapStateToProps = state => ({
   ...state.milista,
+  ...state.viewed,
   ...state.peliculas,
   ...state.series,
   ...state.generos,
   ...state.filters,
   ...state,
   milista: state.milista.milista,
+  viewed: state.viewed.viewed,
   peliculas: state.peliculas.peliculas,
   series: state.series.series,
   generos: state.generos.generos,
   filters: state.filters.filters,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addToList, removeFromList, fetchMovies, fetchSeries }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addToList, removeFromList, fetchMovies, fetchSeries, setAsNotViewed, setAsViewed }, dispatch);
 
 export default compose(
   withRouter,

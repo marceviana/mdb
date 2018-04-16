@@ -105,7 +105,7 @@ The below snippet of CSS must be included into your project. Future release may 
     right: 0;
     bottom: 0;
     left: 0;
-    visibility: hidden;
+    /* visibility: hidden; */
     opacity: 0;
     transition: all .5s ease-in-out;
     display: flex;
@@ -120,8 +120,9 @@ The below snippet of CSS must be included into your project. Future release may 
     cursor: pointer;
 }
 
+.grid-item-body:hover,
 .grid-item:hover .grid-item-body {
-    visibility: visible;
+    /* visibility: visible; */
     opacity: 1;
 }
 
@@ -187,6 +188,11 @@ The below snippet of CSS must be included into your project. Future release may 
 .list-item-description {
 }
 .list-item-actions {}
+
+.grid-item-actions .btn + .btn,
+.list-item-actions .btn + .btn {
+    margin-left: 5px;
+}
 
 .search-item h3{
     font-size: 1.25rem;

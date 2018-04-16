@@ -43,11 +43,13 @@ let sectionReducer = ( {series, peliculas, location, milista, ...props} ) => {
 let screenReducer = (items, filterName, filterValue) => {
 
     // console.log(filterName,filterValue);
+    
     let generos = (localStorage.generos && JSON.parse(localStorage.generos)) || [];
+    let viewed = (localStorage.viewed && JSON.parse(localStorage.viewed)) || [];
 
     switch (filterName) {
         case "filter-viewed":
-            return items.filter((item,i) => item.viewed===parseInt(filterValue,0))
+            return items.filter((item,i) => parseInt(filterValue,0)===1 ? viewed.indexOf(item.id) >= 0 : viewed.indexOf(item.id) < 0  )
         case "filter-year":
             return items.filter((item,i) => item.release_date && new Date(item.release_date).getFullYear() === parseInt(filterValue,0))
         case "filter-genre":
@@ -116,8 +118,10 @@ let lista = ( {location, ...props} ) => {
             imgSrc: `https://image.tmdb.org/t/p/w500/${item.poster_path}`,
             date: item.release_date,
             key: i,
-            onClick: (props.milista.indexOf(item.id) >= 0 ? props.removeFromList :  props.addToList),
-            btnType: (props.milista.indexOf(item.id) >= 0 ? 'remove' :  'add'),
+            toggleList: (props.milista.indexOf(item.id) >= 0 ? props.removeFromList :  props.addToList),
+            toggleViewed: (props.viewed.indexOf(item.id) >= 0 ? props.setAsNotViewed :  props.setAsViewed),
+            inList: props.milista.indexOf(item.id) >= 0,
+            isViewed: props.viewed.indexOf(item.id) >= 0,
             ...item
         }
 
@@ -130,7 +134,7 @@ let lista = ( {location, ...props} ) => {
     });
 
     return items.length ? items :
-    props.isFetching ? <EmptyGrid>Cargando...</EmptyGrid> :
+    props.isFetching ? <EmptyGrid><div className="loading"><i className="mdi mdi-loading"></i></div></EmptyGrid> :
     props.error ? <EmptyGrid>{props.error}</EmptyGrid> :
     <EmptyGrid>Ops, nada por aqui!</EmptyGrid>
 }

@@ -3,15 +3,17 @@ import Detail from "../components/Detail";
 import { compose, lifecycle } from 'recompose'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
-import { fetchCredits, resetCredits } from '../actions'
+import { fetchCredits, resetCredits, addToList, removeFromList, setAsNotViewed, setAsViewed } from '../actions'
 
 const mapStateToProps = state => ({
   ...state.peliculas,
   ...state.series,
-  ...state.credits
+  ...state.credits,
+  milista: state.milista.milista,
+  viewed: state.viewed.viewed,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ fetchCredits, resetCredits }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchCredits, resetCredits, addToList, removeFromList, setAsNotViewed, setAsViewed }, dispatch);
 
 export default compose(
   withRouter,

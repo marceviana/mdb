@@ -6,6 +6,7 @@ import { replace, push } from 'react-router-redux'
 import { withRouter } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
+import Button from "./Buttons";
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
@@ -19,16 +20,13 @@ const GridItem = ( props ) => {
             <StyledDiv className="grid-item">
                 <img src={ props.imgSrc } alt="Movie" className="img-fluid" />
                 <span className="grid-item-body">
-                    <span className="grid-item-title">{ props.title }</span>
-                    <span className="grid-item-date">{ props.date && new Date(props.date).toLocaleString().split(' ')[0] }</span>
+                    <NavLink  to={`/detail/${ props.id }`}>
+                        <span className="grid-item-title">{ props.title }</span><br />
+                        <span className="grid-item-date">{ props.date && new Date(props.date).toLocaleString().split(' ')[0] }</span>
+                    </NavLink>
                     <div className="grid-item-actions">
-                        <span onClick={ (e) => props.onClick(props.id) } className="btn btn-primary">
-                            {props.btnType === 'add' && <i className="mdi mdi-heart"></i>}
-                            {props.btnType === 'remove' && <i className="mdi mdi-delete"></i>}
-                        </span>
-                        <NavLink  to={`/detail/${ props.id }`} className="btn btn-primary">
-                            <i className="mdi mdi-eye-outline"></i>
-                        </NavLink>
+                        <Button btnType={ props.inList ? 'remove' : 'add' } onClick={ (e) => props.toggleList(props.id) } />
+                        <Button btnType={ props.isViewed ? 'viewed' : 'not-viewed' } onClick={ (e) => props.toggleViewed(props.id) } />
                     </div>
                 </span>
             </StyledDiv>
