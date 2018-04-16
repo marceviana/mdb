@@ -1,0 +1,6 @@
+export { default as peliculas } from './peliculas'
+export { default as series } from './series'
+export { default as generos } from './generos'
+export { default as filters } from './filters'
+export { default as credits } from './credits'
+export { default as milista } from './milista'
