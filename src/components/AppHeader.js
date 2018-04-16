@@ -7,7 +7,6 @@ import { NavLink, withRouter } from 'react-router-dom'
 
 import styled from 'styled-components'
 import ListItem from "./ListItem";
-import Button from "./Buttons";
 
 const StyledHeader = styled.header`
     position: fixed;
@@ -50,7 +49,7 @@ const Results = ({ search_term, peliculas, series, ...props }) => {
     })
 
     // console.log(items);
-    
+
     return (
         <StyledResults>
             { items.length ? items : <h4 style={ {padding: '40px'} } >Oops, nada por aqui!</h4> }
